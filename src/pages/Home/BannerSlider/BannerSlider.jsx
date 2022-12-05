@@ -1,15 +1,26 @@
 import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import img1 from "../../../assets/sliderImg/img-1.jpg";
+import img2 from "../../../assets/sliderImg/img-2.jpg";
+import img3 from "../../../assets/sliderImg/img-3.jpg";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
-
 import "./BannerSlider.css";
+import { Autoplay } from "swiper";
 
-// import required modules
-import { Pagination } from "swiper";
+const sliders = [
+  {
+    img: img1,
+  },
+  {
+    img: img2,
+  },
+  {
+    img: img3,
+  },
+];
 
 export default function BannerSlider() {
   return (
@@ -17,21 +28,18 @@ export default function BannerSlider() {
       <Swiper
         slidesPerView={"auto"}
         spaceBetween={30}
-        pagination={{
-          clickable: true,
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
         }}
-        modules={[Pagination]}
+        modules={[Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {sliders.map((slider, i) => (
+          <SwiperSlide key={i}>
+            <img src={slider.img} alt="" />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );
