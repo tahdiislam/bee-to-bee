@@ -5,7 +5,7 @@ import { router } from './Router/router'
 function App() {
 
   return (
-    <div className="App">
+    <div className="App container mx-auto">
       <RouterProvider router={router}/>
     </div>
   )
