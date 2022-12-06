@@ -1,15 +1,47 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo/logo-01.png";
+import { UserContext } from "../../Context/AuthProvider";
 import { BlurContext } from "../../Context/SetBlur";
 
 const Login = () => {
   const { setBlur } = useContext(BlurContext);
+  const { createUserWithEmail } = useContext(UserContext);
+
+  // form submit handler
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    // create user with email and pass
+    createUserWithEmail(email, password)
+      .then((res) => {
+        setBlur((e) => !e);
+        toast.success("User Created Successfully!");
+      })
+      .catch((err) => {
+        toast.error(
+          err.message
+            .split("Firebase: ")
+            .join("")
+            .split(" (")
+            .join(": ")
+            .split("auth/")
+            .join(" ")
+            .split("-")
+            .join(" ")
+            .split(")")
+            .join("")
+        );
+      });
+  };
   return (
     <div className="absolute z-20 w-2/4 right-0 h-full">
       <div
         style={{ height: "90vh", marginTop: "5vh" }}
-        className="my-auto bg-white rounded-tl-3xl rounded-bl-3xl relative"
+        className="my-auto bg-white rounded-tl-3xl rounded-bl-3xl relative border border-black border-r-0"
       >
         <svg
           className="absolute top-0 rounded-tl-3xl z-10"
@@ -23,7 +55,7 @@ const Login = () => {
           ></path>
         </svg>
         <div className="flex justify-between mx-10">
-          <div className="z-50 flex items-center justify-center top-4 w-1/2">
+          <div className="z-50 flex items-center justify-center mt-4 w-1/2">
             <img className="w-16 h-24" src={logo} alt="" />
             <span class="ml-3 text-2xl font-semibold w-4">BEE 2 BEE</span>
           </div>
@@ -34,7 +66,7 @@ const Login = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-8 h-8"
+              className="w-10 h-10"
             >
               <path
                 strokeLinecap="round"
@@ -45,7 +77,7 @@ const Login = () => {
           </button>
         </div>
         <div className="w-3/4 h-full flex justify-center pt-10">
-          <form>
+          <form onSubmit={handleFormSubmit}>
             <h3 className="text-2xl font-semibold">Welcome Back</h3>
             <p className="text-lg font-medium text-red-900">
               Log in to continue
@@ -74,7 +106,7 @@ const Login = () => {
               <input
                 type="password"
                 id="full-name"
-                name="email"
+                name="password"
                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
@@ -101,7 +133,7 @@ const Login = () => {
                 type="submit"
                 className="bg-yellow-400 border-0 text-base py-2 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black md:mt-0 font-semibold shadow-lg w-3/4"
               >
-                Log In
+                Sign Up
               </button>
             </div>
           </form>

@@ -1,10 +1,24 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/logo-01.png";
+import { UserContext } from "../Context/AuthProvider";
 import { BlurContext } from "../Context/SetBlur";
 
 const Header = () => {
   const { setBlur, blur } = useContext(BlurContext);
+  const { user, logOut } = useContext(UserContext);
+
+  // sing out user
+  const handleSignOut = () => {
+    logOut()
+      .then((res) => {
+        toast.success("User sing out successfully");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <header class={`text-gray-600 body-font ${blur ? "blur-sm" : undefined}`}>
       <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -16,22 +30,35 @@ const Header = () => {
           <span class="ml-3 text-2xl font-semibold w-4">BEE 2 BEE</span>
         </Link>
         <nav class="md:ml-auto flex flex-wrap items-center text-base justify-end w-1/2 font-medium text-xl">
-          <Link to="/" class="mr-5 hover:text-gray-900">
-            Search
-          </Link>
-          <Link to="/" class="mr-5 hover:text-gray-900">
-            Offers
-          </Link>
-          <Link to="/" class="mr-5 hover:text-gray-900">
-            Cart
-          </Link>
+          {user?.uid && (
+            <>
+              <Link to="/" class="mr-5 hover:text-gray-900">
+                Search
+              </Link>
+              <Link to="/" class="mr-5 hover:text-gray-900">
+                Offers
+              </Link>
+              <Link to="/" class="mr-5 hover:text-gray-900">
+                Cart
+              </Link>
+            </>
+          )}
         </nav>
-        <button
-          onClick={() => setBlur((e) => !e)}
-          class="inline-flex items-center bg-yellow-400 border-0 py-1 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black mt-4 md:mt-0 font-semibold shadow-lg"
-        >
-          Login/Signup
-        </button>
+        {user?.uid ? (
+          <button
+            onClick={handleSignOut}
+            class="inline-flex items-center bg-yellow-400 border-0 py-1 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black mt-4 md:mt-0 font-semibold shadow-lg"
+          >
+            SignOut
+          </button>
+        ) : (
+          <button
+            onClick={() => setBlur((e) => !e)}
+            class="inline-flex items-center bg-yellow-400 border-0 py-1 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black mt-4 md:mt-0 font-semibold shadow-lg"
+          >
+            Login/Signup
+          </button>
+        )}
       </div>
     </header>
   );
