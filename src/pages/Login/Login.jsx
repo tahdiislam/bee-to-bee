@@ -8,7 +8,7 @@ import { BlurContext } from "../../Context/SetBlur";
 const Login = () => {
   const [login, setLogin] = useState(true);
   const { setBlur } = useContext(BlurContext);
-  const { createUserWithEmail } = useContext(UserContext);
+  const { createUserWithEmail, LogInUser } = useContext(UserContext);
 
   // form submit handler
   const handleSignUp = (e) => {
@@ -42,6 +42,31 @@ const Login = () => {
   // login handler
   const handleLogin = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    // login user
+    LogInUser(email, password)
+      .then((res) => {
+        setBlur((e) => !e);
+        toast.success("Sign in successfully!");
+      })
+      .catch((err) => {
+        toast.error(
+          err.message
+            .split("Firebase: ")
+            .join("")
+            .split(" (")
+            .join(": ")
+            .split("auth/")
+            .join(" ")
+            .split("-")
+            .join(" ")
+            .split(")")
+            .join("")
+        );
+      });
   };
   return (
     <div className="absolute z-20 w-2/4 right-0 h-full">
@@ -101,6 +126,7 @@ const Login = () => {
                   id="full-name"
                   name="email"
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  required
                 />
               </div>
               <div>
@@ -115,6 +141,7 @@ const Login = () => {
                   id="full-name"
                   name="password"
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  required
                 />
               </div>
               <div className="flex items-start">
@@ -178,6 +205,7 @@ const Login = () => {
                   id="full-name"
                   name="email"
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  required
                 />
               </div>
               <div>
@@ -192,6 +220,7 @@ const Login = () => {
                   id="full-name"
                   name="password"
                   class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  required
                 />
               </div>
               <div className="flex items-start">

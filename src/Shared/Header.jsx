@@ -7,7 +7,7 @@ import { BlurContext } from "../Context/SetBlur";
 
 const Header = () => {
   const { setBlur, blur } = useContext(BlurContext);
-  const { user, logOut } = useContext(UserContext);
+  const { user, logOut, setLoading } = useContext(UserContext);
 
   // sing out user
   const handleSignOut = () => {
@@ -17,7 +17,8 @@ const Header = () => {
       })
       .catch((err) => {
         console.log(err.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
   return (
     <header class={`text-gray-600 body-font ${blur ? "blur-sm" : undefined}`}>

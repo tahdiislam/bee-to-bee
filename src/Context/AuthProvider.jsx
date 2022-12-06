@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
@@ -19,6 +20,12 @@ const AuthProvider = ({ children }) => {
   const createUserWithEmail = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // sign in with email and password
+  const LogInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   // log out user
@@ -43,6 +50,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     createUserWithEmail,
     logOut,
+    LogInUser,
   };
   return (
     <UserContext.Provider value={userInfo}>{children}</UserContext.Provider>
