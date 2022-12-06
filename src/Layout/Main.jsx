@@ -1,14 +1,18 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from '../Shared/Header';
+import React, { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { BlurContext } from "../Context/SetBlur";
+import Login from "../pages/Login/Login";
+import Header from "../Shared/Header";
 
 const Main = () => {
-    return (
-        <div>
-            <Header/>
-            <Outlet/>
-        </div>
-    );
+  const { blur } = useContext(BlurContext);
+  return (
+    <div className="relative">
+      {blur && <Login />}
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
 export default Main;
