@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo/logo-01.png";
@@ -6,11 +6,12 @@ import { UserContext } from "../../Context/AuthProvider";
 import { BlurContext } from "../../Context/SetBlur";
 
 const Login = () => {
+  const [login, setLogin] = useState(true);
   const { setBlur } = useContext(BlurContext);
   const { createUserWithEmail } = useContext(UserContext);
 
   // form submit handler
-  const handleFormSubmit = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
@@ -36,6 +37,11 @@ const Login = () => {
             .join("")
         );
       });
+  };
+
+  // login handler
+  const handleLogin = (e) => {
+    e.preventDefault();
   };
   return (
     <div className="absolute z-20 w-2/4 right-0 h-full">
@@ -77,66 +83,160 @@ const Login = () => {
           </button>
         </div>
         <div className="w-3/4 h-full flex justify-center pt-10">
-          <form onSubmit={handleFormSubmit}>
-            <h3 className="text-2xl font-semibold">Welcome Back</h3>
-            <p className="text-lg font-medium text-red-900">
-              Log in to continue
-            </p>
-            <div>
-              <label
-                for="full-name"
-                class="leading-7 text-sm font-semibold text-gray-600"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="full-name"
-                name="email"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
-            <div>
-              <label
-                for="full-name"
-                class="leading-7 text-sm font-semibold text-gray-600"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="full-name"
-                name="password"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
-            <div className="flex items-start">
-              <div className="flex h-5 items-center">
+          {!login && (
+            <form onSubmit={handleSignUp}>
+              <h3 className="text-2xl font-semibold">New here?</h3>
+              <p className="text-lg font-medium text-red-900">
+                Sign up with email
+              </p>
+              <div>
+                <label
+                  for="full-name"
+                  class="leading-7 text-sm font-semibold text-gray-600"
+                >
+                  Email
+                </label>
                 <input
-                  id="offers"
-                  name="offers"
-                  type="checkbox"
-                  className="h-4 w-4 checked:text-black"
+                  type="email"
+                  id="full-name"
+                  name="email"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
-              <div className="ml-3 text-sm w-full flex justify-between">
-                <label htmlFor="offers" className="font-medium text-gray-700">
-                  Remember me
+              <div>
+                <label
+                  for="full-name"
+                  class="leading-7 text-sm font-semibold text-gray-600"
+                >
+                  Password
                 </label>
-                <label className="font-medium  text-red-500">
-                  <Link to="/">Forgot password?</Link>
-                </label>
+                <input
+                  type="password"
+                  id="full-name"
+                  name="password"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
               </div>
-            </div>
-            <div className="flex justify-center py-5">
-              <button
-                type="submit"
-                className="bg-yellow-400 border-0 text-base py-2 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black md:mt-0 font-semibold shadow-lg w-3/4"
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
+              <div className="flex items-start">
+                <div className="flex h-5 items-center">
+                  <input
+                    id="offers"
+                    name="offers"
+                    type="checkbox"
+                    className="h-4 w-4 checked:text-black"
+                  />
+                </div>
+                <div className="ml-3 text-sm w-full flex justify-between">
+                  <label htmlFor="offers" className="font-medium text-gray-700">
+                    Remember me
+                  </label>
+                  <label className="font-medium  text-red-500">
+                    <Link to="/">Forgot password?</Link>
+                  </label>
+                </div>
+              </div>
+              <div className="flex justify-center py-5">
+                <button
+                  type="submit"
+                  className="bg-yellow-400 border-0 text-base py-2 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black md:mt-0 font-semibold shadow-lg w-3/4"
+                >
+                  Sign Up
+                </button>
+              </div>
+              <div className="flex justify-center">
+                <div className="flex h-5 items-center">
+                  <input
+                    name="offers"
+                    type="checkbox"
+                    className="h-4 w-4 checked:text-black"
+                    onChange={() => setLogin((e) => !e)}
+                  />
+                </div>
+                <div className="ml-3 text-sm w-full flex justify-between">
+                  <label className="font-medium text-yellow-500">
+                    {login ? "Register" : "Login"}
+                  </label>
+                </div>
+              </div>
+            </form>
+          )}
+          {login && (
+            <form onSubmit={handleLogin}>
+              <h3 className="text-2xl font-semibold">Welcome Back</h3>
+              <p className="text-lg font-medium text-red-900">
+                Log in to continue
+              </p>
+              <div>
+                <label
+                  for="full-name"
+                  class="leading-7 text-sm font-semibold text-gray-600"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="full-name"
+                  name="email"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div>
+                <label
+                  for="full-name"
+                  class="leading-7 text-sm font-semibold text-gray-600"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="full-name"
+                  name="password"
+                  class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div className="flex items-start">
+                <div className="flex h-5 items-center">
+                  <input
+                    id="offers"
+                    name="offers"
+                    type="checkbox"
+                    className="h-4 w-4 checked:text-black"
+                  />
+                </div>
+                <div className="ml-3 text-sm w-full flex justify-between">
+                  <label htmlFor="offers" className="font-medium text-gray-700">
+                    Remember me
+                  </label>
+                  <label className="font-medium  text-red-500">
+                    <Link to="/">Forgot password?</Link>
+                  </label>
+                </div>
+              </div>
+              <div className="flex justify-center py-5">
+                <button
+                  type="submit"
+                  className="bg-yellow-400 border-0 text-base py-2 px-3 focus:outline-none hover:bg-yellow-500 rounded-full text-black md:mt-0 font-semibold shadow-lg w-3/4"
+                >
+                  Login
+                </button>
+              </div>
+              <div className="flex justify-center">
+                <div className="flex h-5 items-center">
+                  <input
+                    name="offers"
+                    type="checkbox"
+                    className="h-4 w-4 checked:text-black"
+                    onChange={() => setLogin((e) => !e)}
+                  />
+                </div>
+                <div className="ml-3 text-sm w-full flex justify-between">
+                  <label className="font-medium text-yellow-500">
+                    {login ? "Register" : "Login"}
+                  </label>
+                </div>
+              </div>
+            </form>
+          )}
         </div>
         <svg
           className="absolute bottom-0 rounded-bl-3xl"
