@@ -173,6 +173,7 @@ const Login = () => {
               <div className="flex justify-center">
                 <div className="flex h-5 items-center">
                   <input
+                    checked
                     name="offers"
                     type="checkbox"
                     className="h-4 w-4 checked:text-black"

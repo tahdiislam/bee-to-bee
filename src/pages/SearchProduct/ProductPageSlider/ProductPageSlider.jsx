@@ -7,8 +7,9 @@ import img3 from "../../../assets/sliderImg/img-3.jpg";
 
 // Import Swiper styles
 import "swiper/css";
-import "./BannerSlider.module.css";
 import { Autoplay } from "swiper";
+
+import "./ProductPageSlider.module.css";
 
 const sliders = [
   {
@@ -20,13 +21,22 @@ const sliders = [
   {
     img: img3,
   },
+  {
+    img: img1,
+  },
+  {
+    img: img2,
+  },
+  {
+    img: img3,
+  },
 ];
 
-export default function BannerSlider() {
+export default function App() {
   return (
     <>
       <Swiper
-        slidesPerView={"auto"}
+        slidesPerView={3}
         spaceBetween={30}
         autoplay={{
           delay: 2500,
@@ -35,9 +45,9 @@ export default function BannerSlider() {
         modules={[Autoplay]}
         className="mySwiper"
       >
-        {sliders.map((slider, i) => (
+        {sliders.map((img, i) => (
           <SwiperSlide key={i}>
-            <img src={slider.img} alt="" />
+            <img className="rounded-2xl" src={img.img} alt="" />
           </SwiperSlide>
         ))}
       </Swiper>

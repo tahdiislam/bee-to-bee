@@ -6,6 +6,7 @@ body {
 }
 
 body {
+  background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
@@ -21,6 +22,7 @@ body {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
+  background: #fff;
 
   /* Center slide text vertically */
   display: -webkit-box;
@@ -43,16 +45,4 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
-}
-
-.swiper-slide {
-  width: 100%;
-}
-
-.swiper-slide:nth-child(2n) {
-  width: 100%;
-}
-
-.swiper-slide:nth-child(3n) {
-  width: 100%;
 }

@@ -1,7 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import BannerSlider from "../BannerSlider/BannerSlider";
 
 const BannerSection = () => {
+  const navigate = useNavigate();
+  // search
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const search = form.searchText.value;
+    navigate("/search-product");
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 md:h-80">
       <div className="px-8 h-full flex flex-col justify-center items-center">
@@ -11,7 +20,7 @@ const BannerSection = () => {
             Welcome to Redsoft, Order from your favorite stores
           </p>
         </div>
-        <form className="w-full my-5">
+        <form onSubmit={handleSearch} className="w-full my-5">
           <label
             for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -38,6 +47,7 @@ const BannerSection = () => {
             </div>
             <input
               type="search"
+              name="searchText"
               class="block w-full px-4 py-2 pl-10 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
               placeholder="Search..."
               required
