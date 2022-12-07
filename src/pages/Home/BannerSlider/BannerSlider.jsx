@@ -37,7 +37,7 @@ export default function BannerSlider() {
       >
         {sliders.map((slider, i) => (
           <SwiperSlide key={i}>
-            <img src={slider.img} alt="" />
+            <img className="rounded-2xl" src={slider.img} alt="" />
           </SwiperSlide>
         ))}
       </Swiper>
