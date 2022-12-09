@@ -5,7 +5,6 @@ import img1 from "../../../assets/sliderImg/img-1.jpg";
 import img2 from "../../../assets/sliderImg/img-2.jpg";
 import img3 from "../../../assets/sliderImg/img-3.jpg";
 
-// Import Swiper styles
 import "swiper/css";
 import "./BannerSlider.module.css";
 import { Autoplay } from "swiper";
